@@ -4,9 +4,12 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import {
+<<<<<<< HEAD
   initializeAuth,
   indexedDBLocalPersistence,
   browserLocalPersistence,
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
@@ -28,6 +31,7 @@ const firebaseConfig = {
 
 // Initialize Firebase App
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+<<<<<<< HEAD
 
 // Initialize Auth with dual IndexedDB + LocalStorage fallback for 100% persistent sessions
 export const auth = (() => {
@@ -40,6 +44,9 @@ export const auth = (() => {
   }
 })();
 
+=======
+export const auth = getAuth(app);
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 export const db = getFirestore(app);
 
 // Provider with required Google Calendar scopes
@@ -52,10 +59,15 @@ const provider = new GoogleAuthProvider();
 CALENDAR_SCOPES.forEach((scope) => {
   provider.addScope(scope);
 });
+<<<<<<< HEAD
+=======
+// Set custom parameters if needed
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 provider.setCustomParameters({
   prompt: 'select_account',
 });
 
+<<<<<<< HEAD
 export interface CachedUserProfile {
   uid: string;
   email: string | null;
@@ -136,6 +148,29 @@ export const initAuth = (
       } else {
         if (onAuthFailure) onAuthFailure();
       }
+=======
+// Flag to track sign-in in progress
+let isSigningIn = false;
+// In-memory token storage (Do NOT store in localStorage per security guidelines)
+let cachedAccessToken: string | null = null;
+
+export const initAuth = (
+  onAuthSuccess?: (user: User, token: string) => void,
+  onAuthFailure?: () => void
+) => {
+  return onAuthStateChanged(auth, async (user: User | null) => {
+    if (user) {
+      if (cachedAccessToken) {
+        if (onAuthSuccess) onAuthSuccess(user, cachedAccessToken);
+      } else if (!isSigningIn) {
+        // Need user re-authentication to refresh in-memory access token
+        cachedAccessToken = null;
+        if (onAuthFailure) onAuthFailure();
+      }
+    } else {
+      cachedAccessToken = null;
+      if (onAuthFailure) onAuthFailure();
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
     }
   });
 };
@@ -150,12 +185,15 @@ export const googleSignIn = async (): Promise<{ user: User; accessToken: string 
     }
 
     cachedAccessToken = credential.accessToken;
+<<<<<<< HEAD
     saveStoredUser(result.user);
     try {
       localStorage.setItem(TOKEN_STORAGE_KEY, credential.accessToken);
       sessionStorage.setItem(TOKEN_STORAGE_KEY, credential.accessToken);
     } catch {}
 
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
     return { user: result.user, accessToken: cachedAccessToken };
   } catch (error) {
     console.error('Google Sign-in error:', error);
@@ -166,14 +204,18 @@ export const googleSignIn = async (): Promise<{ user: User; accessToken: string 
 };
 
 export const getAccessToken = (): string | null => {
+<<<<<<< HEAD
   if (!cachedAccessToken) {
     cachedAccessToken = getStoredToken();
   }
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
   return cachedAccessToken;
 };
 
 export const setAccessToken = (token: string | null) => {
   cachedAccessToken = token;
+<<<<<<< HEAD
   try {
     if (token) {
       localStorage.setItem(TOKEN_STORAGE_KEY, token);
@@ -193,4 +235,11 @@ export const logout = async () => {
   }
   cachedAccessToken = null;
   clearStoredUser();
+=======
+};
+
+export const logout = async () => {
+  await signOut(auth);
+  cachedAccessToken = null;
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 };

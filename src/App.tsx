@@ -28,6 +28,7 @@ import { HabitsPage } from './components/HabitsPage';
 import { ProjectsPage } from './components/ProjectsPage';
 import { NotesPage } from './components/NotesPage';
 import { DataBackupModal } from './components/DataBackupModal';
+<<<<<<< HEAD
 import {
   initAuth,
   googleSignIn,
@@ -36,6 +37,9 @@ import {
   getStoredToken,
   CachedUserProfile,
 } from './services/googleAuth';
+=======
+import { initAuth, googleSignIn, logout } from './services/googleAuth';
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 import {
   testFirestoreConnection,
   subscribeToUserDashboard,
@@ -50,11 +54,19 @@ import { Smartphone, Laptop, Tablet, Cloud, CheckCircle2 } from 'lucide-react';
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>('tasks');
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
+<<<<<<< HEAD
 
   // Authentication & Cloud Sync - Synchronously restored so you NEVER get logged out on refresh
   const [currentUser, setCurrentUser] = useState<User | CachedUserProfile | null>(() => getStoredUser());
   const [isCalendarConnected, setIsCalendarConnected] = useState<boolean>(() => Boolean(getStoredToken()));
   const [syncStatus, setSyncStatus] = useState<SyncStatus>(() => (getStoredUser() ? 'synced' : 'offline'));
+=======
+  const [isCalendarConnected, setIsCalendarConnected] = useState(false);
+
+  // Authentication & Cloud Sync
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>('offline');
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 
   // Persistent States
   const [tasks, setTasks] = useState<Task[]>(() => loadTasks());
@@ -75,6 +87,7 @@ export default function App() {
   // Listen for Google Auth state
   useEffect(() => {
     const unsubscribe = initAuth(
+<<<<<<< HEAD
       (user, token) => {
         setCurrentUser(user);
         setIsCalendarConnected(Boolean(token));
@@ -87,6 +100,17 @@ export default function App() {
           setIsCalendarConnected(false);
           setSyncStatus('offline');
         }
+=======
+      (user, _token) => {
+        setCurrentUser(user);
+        setIsCalendarConnected(true);
+        setSyncStatus('connecting');
+      },
+      () => {
+        setCurrentUser(null);
+        setIsCalendarConnected(false);
+        setSyncStatus('offline');
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
       }
     );
     return () => unsubscribe();
@@ -94,7 +118,11 @@ export default function App() {
 
   // Set up Real-time Cross-Device Firestore Sync when user is logged in
   useEffect(() => {
+<<<<<<< HEAD
     if (!currentUser?.uid) return;
+=======
+    if (!currentUser) return;
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 
     let unsubscribeSnapshot: (() => void) | null = null;
 
@@ -193,7 +221,11 @@ export default function App() {
     return () => {
       if (unsubscribeSnapshot) unsubscribeSnapshot();
     };
+<<<<<<< HEAD
   }, [currentUser?.uid]);
+=======
+  }, [currentUser]);
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 
   // Helper to trigger cloud sync when user makes changes locally
   const syncToCloud = (partialData: {
@@ -204,7 +236,11 @@ export default function App() {
     projects?: ProjectGoal[];
     notes?: Note[];
   }) => {
+<<<<<<< HEAD
     if (!currentUser?.uid || isRemoteUpdateRef.current) return;
+=======
+    if (!currentUser || isRemoteUpdateRef.current) return;
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 
     queueDashboardSave(
       currentUser.uid,
@@ -264,7 +300,10 @@ export default function App() {
       if (result) {
         setCurrentUser(result.user);
         setIsCalendarConnected(true);
+<<<<<<< HEAD
         setSyncStatus('synced');
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
       }
     } catch (e) {
       console.error('Sign-in failed', e);
@@ -294,7 +333,11 @@ export default function App() {
     setProjects(loadedProjects);
     setNotes(loadedNotes);
 
+<<<<<<< HEAD
     if (currentUser?.uid) {
+=======
+    if (currentUser) {
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
       saveDashboardToFirestore(currentUser.uid, {
         tasks: loadedTasks,
         clubs: loadedClubs,

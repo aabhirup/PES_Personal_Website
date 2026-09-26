@@ -17,7 +17,10 @@ import {
 import { NavigationTab } from '../types';
 import { SyncStatus } from '../services/firestoreSync';
 import { User } from 'firebase/auth';
+<<<<<<< HEAD
 import { CachedUserProfile } from '../services/googleAuth';
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 
 interface NavbarProps {
   activeTab: NavigationTab;
@@ -27,7 +30,11 @@ interface NavbarProps {
   totalHabitsCount: number;
   isCalendarConnected: boolean;
   onOpenBackupModal: () => void;
+<<<<<<< HEAD
   user: User | CachedUserProfile | null;
+=======
+  user: User | null;
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
   syncStatus: SyncStatus;
   onSignIn: () => void;
   onSignOut: () => void;

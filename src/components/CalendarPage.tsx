@@ -23,8 +23,11 @@ import {
   logout,
   getAccessToken,
   setAccessToken,
+<<<<<<< HEAD
   getStoredUser,
   getStoredToken,
+=======
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
 } from '../services/googleAuth';
 import {
   fetchCalendarEvents,
@@ -33,9 +36,15 @@ import {
 } from '../services/calendarApi';
 
 export const CalendarPage: React.FC = () => {
+<<<<<<< HEAD
   const [user, setUser] = useState<any>(() => getStoredUser());
   const [token, setToken] = useState<string | null>(() => getStoredToken() || getAccessToken());
   const [isLoadingAuth, setIsLoadingAuth] = useState(false);
+=======
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+>>>>>>> b126ee59c2f86c00a20059fce31a99d0136f53dc
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
