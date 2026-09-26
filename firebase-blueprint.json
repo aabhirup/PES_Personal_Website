@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "DashboardData": {
+      "title": "DashboardData",
+      "description": "User persistent multi-device state containing tasks, clubs, habits, habit logs, project goals, and markdown notes.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this data."
+        },
+        "tasks": {
+          "type": "array",
+          "description": "Array of task items."
+        },
+        "clubs": {
+          "type": "array",
+          "description": "Array of clubs and organizations."
+        },
+        "habits": {
+          "type": "array",
+          "description": "Array of habit items."
+        },
+        "habitLogs": {
+          "type": "object",
+          "description": "Mapping of dates to completed habit IDs."
+        },
+        "projects": {
+          "type": "array",
+          "description": "Array of long term project goals and milestones."
+        },
+        "notes": {
+          "type": "array",
+          "description": "Array of markdown notes."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this record was last modified."
+        }
+      },
+      "required": ["ownerId", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/data/{docId}": {
+      "schema": "DashboardData",
+      "description": "Private user dashboard store accessible only to the authenticated owner."
+    }
+  }
+}
