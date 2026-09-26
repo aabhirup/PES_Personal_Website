@@ -1,0 +1,6 @@
+{
+  "name": "Nexus Hub - Tasks, Habits & Projects",
+  "description": "An all-in-one dark mode personal productivity dashboard featuring tasks, Google Calendar access, clubs management, habit tracking, long-term project goals, and notes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
