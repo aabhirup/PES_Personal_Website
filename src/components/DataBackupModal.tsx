@@ -51,7 +51,7 @@ export const DataBackupModal: React.FC<DataBackupModalProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `nexus_hub_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `pes_tracking_hub_backup_${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

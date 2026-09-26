@@ -1,4 +1,4 @@
-# Nexus Hub — Tasks, Calendar, Habits & Projects
+# PES Tracking HUB — Tasks, Calendar, Habits & Projects
 
 A dark mode productivity and life management system featuring:
 - **Task Management**: Daily to-dos with priorities, subtasks, due dates, and categories.
@@ -20,7 +20,7 @@ This app is built with **Vite** and **React** and is pre-configured for one-clic
 1. **Push this project to GitHub / GitLab / Bitbucket**:
    ```bash
    git add .
-   git commit -m "Initial commit for Nexus Hub"
+   git commit -m "Initial commit for PES Tracking HUB"
    git push origin main
    ```
 

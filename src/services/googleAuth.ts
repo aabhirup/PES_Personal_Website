@@ -2,6 +2,7 @@
  * Google Authentication and Firebase initialization for Workspace Calendar integration.
  */
 import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import {
   getAuth,
   signInWithPopup,
@@ -23,8 +24,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase App
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 // Provider with required Google Calendar scopes
 export const CALENDAR_SCOPES = [
